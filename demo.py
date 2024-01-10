@@ -46,7 +46,7 @@ if (input_name_food!='') & (input_method!=''):
     
     input_id_food = data_food[data_food['name_food']==input_name_food].itemID.iloc[0]
     list_user_rated = np.array(data_base[(data_base.itemID == input_id_food)].sort_values('rating',ascending=False).userID)
-    random_userID = random.choice(list_user_rated[:10])
+    random_userID = np.random.choice(list_user_rated[:10])
     recommendations = scores[scores.userID==random_userID].sort_values('score', ascending=False)[['recommended_itemID','score']][:10]
 
     data_base["rn"] = data_base[['itemID','name_food','link_image_food','link_food']].groupby('itemID')['itemID'].rank(method='first')
@@ -60,7 +60,6 @@ if (input_name_food!='') & (input_method!=''):
     new_df.drop(['rn','itemID'],axis=1,inplace=True)
 
     st.write(new_df)
-    # st.success('Yay! 🎉')
 
 
 
