@@ -8,12 +8,13 @@ import streamlit as st
 # THRESHOLD_RATING = 5.0 
 
 data_base = pd.read_csv("data_for_print.csv")
-list_name_food = [''] + list(data_base.name_food)
+list_name_food = [''] + list(data_base.name_food.unique())
 
 # Streamlit app
-st.title("NAME APP")
+st.title("WHAT SHOULD I COOK TODAY?") # Name app
+st.header("Top recipe maybe you want:")
 
-st.header("WHAT SHOULD I COOKING TODAY?")
+# Slidebar
 st.sidebar.header("LOGO")
 input_name_food = st.sidebar.selectbox(label = 'I want to make: ',
                                   options = list_name_food, 
