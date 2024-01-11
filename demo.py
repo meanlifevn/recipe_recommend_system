@@ -44,7 +44,7 @@ if (input_name_food!='') & (input_method!=''):
     else:
         scores = pd.read_csv('')
     
-    input_id_food = data_food[data_food['name_food']==input_name_food].itemID.iloc[0]
+    input_id_food = data_base[data_base['name_food']==input_name_food].itemID.iloc[0]
     list_user_rated = np.array(data_base[(data_base.itemID == input_id_food)].sort_values('rating',ascending=False).userID)
     random_userID = np.random.choice(list_user_rated[:10])
     recommendations = scores[scores.userID==random_userID].sort_values('score', ascending=False)[['recommended_itemID','score']][:10]
