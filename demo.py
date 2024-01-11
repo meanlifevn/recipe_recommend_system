@@ -1,5 +1,5 @@
 # Import libraries
-import random
+
 import numpy as np
 import pandas as pd
 import streamlit as st
@@ -7,14 +7,14 @@ import streamlit as st
 # Constant value
 # THRESHOLD_RATING = 5.0 
 
-data_food = pd.read_csv("data_food.csv")
-list_name_food = [''] + list(data_food.name_food)
-data_base = pd.read_csv("database.csv")
+data_base = pd.read_csv("data_for_print.csv")
+list_name_food = [''] + list(data_base.name_food.unique())
 
 # Streamlit app
-st.title("NAME APP")
+st.title("WHAT SHOULD I COOK TODAY?") # Name app
+st.header("Top recipe maybe you want:")
 
-st.header("WHAT SHOULD I COOKING TODAY?", divider = 'rainbow')
+# Slidebar
 st.sidebar.header("LOGO")
 input_name_food = st.sidebar.selectbox(label = 'I want to make: ',
                                   options = list_name_food, 
@@ -38,13 +38,13 @@ input_method = st.sidebar.radio('Choose a method: ',
 
 if (input_name_food!='') & (input_method!=''):
     if (input_method=='Sentiment'):
-        scores = pd.read_csv('user_recommendations_train.csv')
+        scores = pd.read_csv('Recommendations_Sentiment.csv')
     elif (input_method=='SVD'):
-        scores = pd.read_csv('')
+        scores = pd.read_csv('Recommendations_SVD.csv')
     else:
         scores = pd.read_csv('')
     
-    input_id_food = data_food[data_food['name_food']==input_name_food].itemID.iloc[0]
+    input_id_food = data_base[data_base['name_food']==input_name_food].itemID.iloc[0]
     list_user_rated = np.array(data_base[(data_base.itemID == input_id_food)].sort_values('rating',ascending=False).userID)
     random_userID = np.random.choice(list_user_rated[:10])
     recommendations = scores[scores.userID==random_userID].sort_values('score', ascending=False)[['recommended_itemID','score']][:10]
@@ -60,10 +60,6 @@ if (input_name_food!='') & (input_method!=''):
     new_df.drop(['rn','itemID'],axis=1,inplace=True)
 
     st.write(new_df)
-
-
-
-
 
 else:
     st.warning('Hmm..... No option is selected')
