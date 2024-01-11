@@ -1,5 +1,4 @@
 # Import libraries
-import random
 import numpy as np
 import pandas as pd
 import streamlit as st
@@ -14,7 +13,7 @@ data_base = pd.read_csv("database.csv")
 # Streamlit app
 st.title("NAME APP")
 
-st.header("WHAT SHOULD I COOKING TODAY?", divider = 'rainbow')
+st.header("WHAT SHOULD I COOKING TODAY?")
 st.sidebar.header("LOGO")
 input_name_food = st.sidebar.selectbox(label = 'I want to make: ',
                                   options = list_name_food, 
@@ -38,9 +37,9 @@ input_method = st.sidebar.radio('Choose a method: ',
 
 if (input_name_food!='') & (input_method!=''):
     if (input_method=='Sentiment'):
-        scores = pd.read_csv('user_recommendations_train.csv')
+        scores = pd.read_csv('Recommendations_Sentiment.csv')
     elif (input_method=='SVD'):
-        scores = pd.read_csv('')
+        scores = pd.read_csv('Recommendations_SVD.csv')
     else:
         scores = pd.read_csv('')
     
@@ -60,10 +59,6 @@ if (input_name_food!='') & (input_method!=''):
     new_df.drop(['rn','itemID'],axis=1,inplace=True)
 
     st.write(new_df)
-
-
-
-
 
 else:
     st.warning('Hmm..... No option is selected')
