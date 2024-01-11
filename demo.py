@@ -1,4 +1,5 @@
 # Import libraries
+
 import numpy as np
 import pandas as pd
 import streamlit as st
@@ -6,9 +7,8 @@ import streamlit as st
 # Constant value
 # THRESHOLD_RATING = 5.0 
 
-data_food = pd.read_csv("data_food.csv")
-list_name_food = [''] + list(data_food.name_food)
-data_base = pd.read_csv("database.csv")
+data_base = pd.read_csv("data_for_print.csv")
+list_name_food = [''] + list(data_base.name_food)
 
 # Streamlit app
 st.title("NAME APP")
