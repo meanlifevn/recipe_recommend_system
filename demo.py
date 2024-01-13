@@ -44,21 +44,19 @@ if (input_name_food!='') & (input_method!=''):
     elif (input_method=='SVD'):
         scores = pd.read_csv('Recommendations_SVD.csv')
     else:
-        scores = pd.read_csv('')
-        # scores = pd.read_csv('Recommendations_LightFM.csv')
+        # scores = pd.read_csv('')
+        scores = pd.read_csv('Recommendations_LightFM.csv')
     
     # Process to get recommendations
     input_id_food = data_base[data_base['name_food']==input_name_food].itemID.iloc[0]
     list_user_rated = np.array(data_base[(data_base.itemID == input_id_food)].sort_values('rating',ascending=False).userID)
     random_userID = np.random.choice(list_user_rated[:10])
-    recommendations = scores[scores.userID==random_userID].sort_values('score', ascending=False)[['recommended_itemID','score']][:number_of_recommendations]
-
+    scores_random_userID = scores[(scores.userID==random_userID) & (scores.recommended_itemID!=input_id_food)]
+    recommendations = scores_random_userID.sort_values('score', ascending=False)[['recommended_itemID','score']][:10]
+  
     data_base["rn"] = data_base[['itemID','name_food','link_image_food','link_food','ingredients','nutrients']].groupby('itemID')['itemID'].rank(method='first')
     recommendations["rn"] = recommendations.groupby('recommended_itemID')['recommended_itemID'].rank(method='first')
     recommendations = recommendations.head(number_of_recommendations)
-
-
-
 
     new_df = recommendations.merge(data_base[['itemID','name_food','link_image_food','link_food','rn','ingredients','nutrients']],
                                    left_on=['recommended_itemID','rn'],
