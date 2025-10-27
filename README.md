@@ -44,19 +44,19 @@ From a user’s perspective:
 ```bash
 git clone https://github.com/meanlifevn/recipe_recommend_system.git
 cd recipe_recommend_system
-
+```
 ### 2. Set up your environment
 ```bash
 bash setup.sh
-
+```
 ### 3. Install dependencies
 ```bash
 pip install -r requirements.txt
-
+```
 ### 4. Run the demo
 ```bash
 python demo.py
-
+```
 ### 5. Interact
 
 - Enter a recipe or food name (e.g., "`spaghetti`").
