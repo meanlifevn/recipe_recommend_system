@@ -65,9 +65,9 @@ python demo.py
 
     - `sentiment`
 
-    -- `svd`
+    - `svd`
 
-    --- `lightfm`
+    - `lightfm`
 
 - Set the number of top recommendations (K).
 
