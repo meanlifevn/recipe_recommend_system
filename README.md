@@ -63,11 +63,11 @@ python demo.py
 
 - Choose a recommendation method:
 
--- `sentiment`
+    - `sentiment`
 
--- `svd`
+    -- `svd`
 
--- `lightfm`
+    --- `lightfm`
 
 - Set the number of top recommendations (K).
 
